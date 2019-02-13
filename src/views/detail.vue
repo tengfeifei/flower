@@ -1,6 +1,7 @@
+
 <template>
   <div id="app">
-   <router-view></router-view>
+   我是详情页面
   </div>
 </template>
 
