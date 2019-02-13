@@ -6,6 +6,7 @@ import Listing from "./views/listing.vue"
 import Detail from "./views/detail.vue"
 import Today from "./views/shopping/today.vue"
 import Last from './views/shopping/last.vue'
+import Mom from './views/shopping/mom.vue'
 
 Vue.use(Router)
 
@@ -24,6 +25,10 @@ export default new Router({
         {
           path:'last',
           component:Last
+        },
+         {
+          path:'mom',
+          component:Mom
         },
         {
           path:'',
