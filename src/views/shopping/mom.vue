@@ -48,11 +48,11 @@
                 		<img :src="bannerlistone[0].lightArtImage.imageUrl" alt="">
                 	</div>
                 	<p class="fast-price-font">{{bannerlistone[1].lightArtLabel.text}}</p>
-                	<p class="fast-price">{{bannerlistone[2].lightArtLabel.text}}</p>
-                	<p class="fast-price-origin">￥200</p>
+                	<p class="fast-price">￥{{bannerlistone[2].lightArtLabel.text}}</p>
+                	<p class="fast-price-origin">￥{{}}</p>
                 </li>
             </ul>
-           
+           11
       </div>
   </div>
 </template>
