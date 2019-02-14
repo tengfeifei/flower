@@ -36,7 +36,7 @@
             <img :src="imgPath(dataa)" />
 <!--             <img :style="imgStyle(dataa)">
  -->            <p>{{textPath(dataa)}}</p>
-        </div> 
+        </div>
     </div>
     <img src="http://b.appsimg.com/upload/momin/2018/11/13/117/1542092001276.jpg" class="img2">
 
@@ -47,104 +47,103 @@
                 <h2>{{dete.data.brand.title}}<span>{{dete.data.brand.remain_days}}</span></h2>
                 <p>{{dete.data.brand.discount}}</p>
             </div>
-         </div> 
-        
+         </div>
+
     </div>
   </div>
 </template>
 
 <script>
-    import {Header} from 'mint-ui' 
-    import axios from 'axios'
-    import Swiper from 'swiper'
-    import 'swiper/dist/css/swiper.css'
-    import Vue from 'vue'
+import { Header } from 'mint-ui'
+import axios from 'axios'
+import Swiper from 'swiper'
+import 'swiper/dist/css/swiper.css'
+import Vue from 'vue'
 
-    Vue.component(Header.name, Header);
-    export default {
-        data(){
-            return{
-                looplist:[],
-                clothlist:[],
-                clothslist:[],
-                swipeslist:[],
-                img2list:[],
-                biglist:[],
-                disable:false
+Vue.component(Header.name, Header)
+export default {
+  data () {
+    return {
+      looplist: [],
+      clothlist: [],
+      clothslist: [],
+      swipeslist: [],
+      img2list: [],
+      biglist: [],
+      disable: false
 
-            }
-        },
-        mounted(){
-            axios({
-                url:"vips-mobile/rest/layout/h5/channel/data?f=www&width=640&height=460&net=wifi&changeResolution=2&channel_name=%E5%A5%B3%E8%A3%85&app_name=shop_wap&app_version=4.0&mars_cid=1550026078264_2b4c9fedc8a681df78ffea976839b8a7&warehouse=VIP_BJ&api_key=8cec5243ade04ed3a02c5972bcda0d3f&fdc_area_id=102101102&province_id=102101&city_id=102101101&saturn=&wap_consumer=A1&standby_id=www&source_app=yd_wap&mobile_platform=2&platform=2&client=wap&lightart_version=1&mobile_channel=mobiles-adp%3Auopxvvef%3A%3A%3A%3A%7C%7C&menu_code=20180925001&_=1550061806101"
-               
-            }).then(res=>{
-                this.looplist=res.data.data.data.floor_list[0].data.operation_data.data.block[0].child;
-                this.clothlist = res.data.data.data.floor_list[1].data.operation_data.data.block[0].child;
-                this.clothslist = res.data.data.data.floor_list[2].data.operation_data.data.block[0].child;
-                this.swipeslist = res.data.data.data.floor_list[4].data.operation_data.contents;
-                this.$nextTick(()=>{
-                    var swiper = new Swiper('.swiper-container', {
-                    slidesPerView: 3,
-                    spaceBetween: 30
-                    });
-                })   
-                this.img2list = res.data.data.data.floor_list[6].data.resourceGroupList[0].resourceList;
-                    console.log(this.img2list);    
-            }),
-            axios({
-                url:"vips-mobile/rest/layout/h5/channel/data?f=www&width=640&height=460&net=wifi&changeResolution=2&channel_name=%E5%A5%B3%E8%A3%85&app_name=shop_wap&app_version=4.0&mars_cid=1550026078264_2b4c9fedc8a681df78ffea976839b8a7&warehouse=VIP_BJ&api_key=8cec5243ade04ed3a02c5972bcda0d3f&fdc_area_id=102101102&province_id=102101&city_id=102101101&saturn=&wap_consumer=A1&standby_id=www&source_app=yd_wap&mobile_platform=2&platform=2&client=wap&lightart_version=1&mobile_channel=mobiles-adp%3Auopxvvef%3A%3A%3A%3A%7C%7C&menu_code=20180925001&load_more_token=eyJjaGFubmVsX2lkIjoiNjYiLCJ0c2lmdCI6IjAiLCJicmFuZF9vZmZzZXQiOiIwIiwiYnJhbmRfcmVmZXJfaW5kZXgiOiI4In0%3D&_=1550120369034"
-               
-            }).then(res=>{
-                this.biglist=res.data.data.data.floor_list;
-                    console.log(this.biglist);   
-            })
-        },
-        methods:{
-            handleClick(index){
-                // console.log(index);
-                this.$router.push(`/listing/${index}`)
-            },
-            imgPath(data){
-                if(data.lightArtImage){
-                    return data.lightArtImage.imageUrl
-                }else{
-                    return ""
-                }
-                
-            },
-            textPath(data){
-                if (data.lightArtLabel) {
-                    return data.lightArtLabel.text
-                } else{
-                    return ""
-                }
-            },
-            loadMore(){
-                console.log("到底了")
+    }
+  },
+  mounted () {
+    axios({
+      url: 'vips-mobile/rest/layout/h5/channel/data?f=www&width=640&height=460&net=wifi&changeResolution=2&channel_name=%E5%A5%B3%E8%A3%85&app_name=shop_wap&app_version=4.0&mars_cid=1550026078264_2b4c9fedc8a681df78ffea976839b8a7&warehouse=VIP_BJ&api_key=8cec5243ade04ed3a02c5972bcda0d3f&fdc_area_id=102101102&province_id=102101&city_id=102101101&saturn=&wap_consumer=A1&standby_id=www&source_app=yd_wap&mobile_platform=2&platform=2&client=wap&lightart_version=1&mobile_channel=mobiles-adp%3Auopxvvef%3A%3A%3A%3A%7C%7C&menu_code=20180925001&_=1550061806101'
 
-                // this.disable = true;
-                // if(this.biglist.length===this.){
-                //     return ;
-                // }
-                // axios({
-                //     url:"vips-mobile/rest/layout/h5/channel/data?f=www&width=640&height=460&net=wifi&changeResolution=2&channel_name=%E5%A5%B3%E8%A3%85&app_name=shop_wap&app_version=4.0&mars_cid=1550026078264_2b4c9fedc8a681df78ffea976839b8a7&warehouse=VIP_BJ&api_key=8cec5243ade04ed3a02c5972bcda0d3f&fdc_area_id=102101102&province_id=102101&city_id=102101101&saturn=&wap_consumer=A1&standby_id=www&source_app=yd_wap&mobile_platform=2&platform=2&client=wap&lightart_version=1&mobile_channel=mobiles-adp%3Auopxvvef%3A%3A%3A%3A%7C%7C&menu_code=20180925001&load_more_token=eyJjaGFubmVsX2lkIjoiNjYiLCJ0c2lmdCI6IjAiLCJicmFuZF9vZmZzZXQiOiIwIiwiYnJhbmRfcmVmZXJfaW5 kZXgiOiI4In0%3D&_=1550120369034"
-                //     kX3JlZmVyX2luZGV4IjoiOSJ9&_=1550131063582
-                // }).then(res=>{
-                //     this.biglist=res.data.data.data.floor_list;
-                //         console.log(this.biglist);   
-                // })
-            }
-            // imgStyle(dataa){
-            //     console.log(dataa)
-            //     if(dataa.lightArtImage){
-            //         return { 'position':'absolute','left':dataa.lightArtImage.bounds.l+'px','top':dataa.lightArtImage.bounds.t+'px','height':'2.77333rem','width':'3.01333rem'}
-            //     }else{
-            //         return { }
-            //     }
-            // }
-        }
-};
+    }).then(res => {
+      this.looplist = res.data.data.data.floor_list[0].data.operation_data.data.block[0].child
+      this.clothlist = res.data.data.data.floor_list[1].data.operation_data.data.block[0].child
+      this.clothslist = res.data.data.data.floor_list[2].data.operation_data.data.block[0].child
+      this.swipeslist = res.data.data.data.floor_list[4].data.operation_data.contents
+      this.$nextTick(() => {
+        var swiper = new Swiper('.swiper-container', {
+          slidesPerView: 3,
+          spaceBetween: 30
+        })
+      })
+      this.img2list = res.data.data.data.floor_list[6].data.resourceGroupList[0].resourceList
+      console.log(this.img2list)
+    }),
+    axios({
+      url: 'vips-mobile/rest/layout/h5/channel/data?f=www&width=640&height=460&net=wifi&changeResolution=2&channel_name=%E5%A5%B3%E8%A3%85&app_name=shop_wap&app_version=4.0&mars_cid=1550026078264_2b4c9fedc8a681df78ffea976839b8a7&warehouse=VIP_BJ&api_key=8cec5243ade04ed3a02c5972bcda0d3f&fdc_area_id=102101102&province_id=102101&city_id=102101101&saturn=&wap_consumer=A1&standby_id=www&source_app=yd_wap&mobile_platform=2&platform=2&client=wap&lightart_version=1&mobile_channel=mobiles-adp%3Auopxvvef%3A%3A%3A%3A%7C%7C&menu_code=20180925001&load_more_token=eyJjaGFubmVsX2lkIjoiNjYiLCJ0c2lmdCI6IjAiLCJicmFuZF9vZmZzZXQiOiIwIiwiYnJhbmRfcmVmZXJfaW5kZXgiOiI4In0%3D&_=1550120369034'
+
+    }).then(res => {
+      this.biglist = res.data.data.data.floor_list
+      console.log(this.biglist)
+    })
+  },
+  methods: {
+    handleClick (index) {
+      // console.log(index);
+      this.$router.push(`/listing/${index}`)
+    },
+    imgPath (data) {
+      if (data.lightArtImage) {
+        return data.lightArtImage.imageUrl
+      } else {
+        return ''
+      }
+    },
+    textPath (data) {
+      if (data.lightArtLabel) {
+        return data.lightArtLabel.text
+      } else {
+        return ''
+      }
+    },
+    loadMore () {
+      console.log('到底了')
+
+      // this.disable = true;
+      // if(this.biglist.length===this.){
+      //     return ;
+      // }
+      // axios({
+      //     url:"vips-mobile/rest/layout/h5/channel/data?f=www&width=640&height=460&net=wifi&changeResolution=2&channel_name=%E5%A5%B3%E8%A3%85&app_name=shop_wap&app_version=4.0&mars_cid=1550026078264_2b4c9fedc8a681df78ffea976839b8a7&warehouse=VIP_BJ&api_key=8cec5243ade04ed3a02c5972bcda0d3f&fdc_area_id=102101102&province_id=102101&city_id=102101101&saturn=&wap_consumer=A1&standby_id=www&source_app=yd_wap&mobile_platform=2&platform=2&client=wap&lightart_version=1&mobile_channel=mobiles-adp%3Auopxvvef%3A%3A%3A%3A%7C%7C&menu_code=20180925001&load_more_token=eyJjaGFubmVsX2lkIjoiNjYiLCJ0c2lmdCI6IjAiLCJicmFuZF9vZmZzZXQiOiIwIiwiYnJhbmRfcmVmZXJfaW5 kZXgiOiI4In0%3D&_=1550120369034"
+      //     kX3JlZmVyX2luZGV4IjoiOSJ9&_=1550131063582
+      // }).then(res=>{
+      //     this.biglist=res.data.data.data.floor_list;
+      //         console.log(this.biglist);
+      // })
+    }
+    // imgStyle(dataa){
+    //     console.log(dataa)
+    //     if(dataa.lightArtImage){
+    //         return { 'position':'absolute','left':dataa.lightArtImage.bounds.l+'px','top':dataa.lightArtImage.bounds.t+'px','height':'2.77333rem','width':'3.01333rem'}
+    //     }else{
+    //         return { }
+    //     }
+    // }
+  }
+}
 </script>
 <style lang="scss">
     *{
@@ -164,7 +163,7 @@
     .backgroundpic{
         ul{
             list-style:none;
-            background: url(http://a.vpimg4.com/upload/flow/2019/01/15/84/15475559343193.jpg) no-repeat; 
+            background: url(http://a.vpimg4.com/upload/flow/2019/01/15/84/15475559343193.jpg) no-repeat;
             background-size:100%;
             display:flex;
             li{
@@ -192,7 +191,7 @@
            img{
             display: block;
             width: 110px;
-           } 
+           }
         }
         div:nth-of-type(1){
             img{
@@ -345,7 +344,6 @@
             top:480px;
         }
 
-
     }
     .sales{
         background:#f3f4f5;
@@ -375,6 +373,6 @@
             }
 
         }
-    }  
+    }
 
 </style>

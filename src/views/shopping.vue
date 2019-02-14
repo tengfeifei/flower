@@ -15,17 +15,14 @@
         <router-link to="#7" tag="li" activeClass="active">唯品.奢</router-link>
       </ul>
 
-    
- 
    <router-view></router-view>
   </div>
 </template>
 <script>
-    import axios from "axios"
-    export default{
-        
+import axios from 'axios'
+export default {
 
-    };
+}
 </script>
 <style scoped>
 *{
@@ -37,7 +34,7 @@ ul{
 }
 .header{
     height: 50px;
-   
+
 }
 input{
     height: 32px;
@@ -63,7 +60,7 @@ ul{
     line-height: 45px;
     height: 45px;
     overflow: auto;
-    white-space:nowrap; 
+    white-space:nowrap;
     text-align: center;
 
 }
