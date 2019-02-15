@@ -2,7 +2,7 @@
   <div id="app">
      <div class="swiper-container">
         <div class="swiper-wrapper">
-            <div class="swiper-slide" v-for="swip in swipeslist" >
+            <div class="swiper-slide" v-for="swip in swipeslist" id="img1">
                 <img :src="swip.url">
             </div>
             
@@ -49,13 +49,13 @@
 <style lang="scss">
     .swiper-container{
         position: relative;
-        div{
-            img{
-                width: 100%;
-                height: 375px;
-            }
+    }
+    #img1{
+        img{
+            width: 100%;
+            height: 375px;
+    
         }
-
     }
     .swiper-pagination{
         position:absolute;
