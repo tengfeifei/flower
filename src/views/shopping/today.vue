@@ -14,8 +14,10 @@
             <img :src="data.data.images[0].path" alt="">
         </li>
   </ul>
-  <div class="conson"> <img :src="list.data.data.floor_list[4].data.operation_data.data.block[0].child[0].data.imageUrl"></div>
-<div class="main" :style="{background: 'url('+ img +')' + 'top' }">
+  <div class="conson" v-if="list">
+   <img :src="list.data.data.floor_list[4].data.operation_data.data.block[0].child[0].data.imageUrl" >
+  </div>
+<div class="main" :style="{background: 'url('+ img +')' + 'top' }" v-if='list'>
     <p class="main_p" v-if="list">
         {{list.data.data.floor_list[6].data.resourceGroupList[0].resourceList[1].lightArtLabel.text}} | {{list.data.data.floor_list[6].data.resourceGroupList[0].resourceList[3].lightArtLabel.text}}
         <span v-if='hours'>{{hours}}</span>
@@ -97,13 +99,11 @@ export default {
     axios({
       url: 'vips-mobile/rest/layout/h5/channel/data?f=www&width=640&height=460&net=wifi&changeResolution=2&channel_name=%E4%BB%8A%E6%97%A5%E6%8E%A8%E8%8D%90&app_name=shop_wap&app_version=4.0&mars_cid=1550039673000_d5cd19b4d43084cdc2d64a76ffddb948&warehouse=VIP_BJ&api_key=8cec5243ade04ed3a02c5972bcda0d3f&fdc_area_id=102101102&province_id=102101&city_id=102101101&saturn=&wap_consumer=A1&standby_id=www&source_app=yd_wap&mobile_platform=2&platform=2&client=wap&lightart_version=1&mobile_channel=mobiles-adp%3Auopxvvef%3A%3A%3A%3A%7C%7C&menu_code=20181203001&_=1550105618798'
     }).then(res => {
-      console.log(res.data)
       this.list = res.data
       this.img = res.data.data.data.floor_list[6].data.resourceGroupList[0].resourceList[0].lightArtImage.imageUrl
       this.endTime = res.data.data.data.floor_list[6].data.resourceGroupList[0].resourceList[4].lightArtCountDown.endTime
       this.startTime = res.data.data.data.floor_list[6].data.resourceGroupList[0].resourceList[4].lightArtCountDown.startTime
       this.nowTime = this.endTime - this.startTime
-      console.log(this.endTime)
       var self = this
       setInterval(function () {
         var now = new Date()
@@ -135,7 +135,6 @@ export default {
       this.moreList=this.moreList.filter((item)=>{
         return item.floor_type==="brand"
       })
-      console.log(this.moreList,"111")
 
     })
   },
