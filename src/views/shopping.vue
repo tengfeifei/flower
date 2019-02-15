@@ -14,7 +14,6 @@
         <router-link to="#6" tag="li" activeClass="active">生活</router-link>
         <router-link to="#7" tag="li" activeClass="active">唯品.奢</router-link>
       </ul>
-
    <router-view></router-view>
   </div>
 </template>

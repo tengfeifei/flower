@@ -66,8 +66,10 @@
         <img :src="todayimg" alt="">
       </div>
       <div class="section-production">
-        <ul class="sectionlist">
-        	<li v-for="data in brandlist">
+        <ul class="sectionlist" v-infinite-scroll="loadMore"
+  infinite-scroll-disabled="loading"
+  infinite-scroll-distance="10">
+        	<li v-for="data in brandlist" @click="handleclick(data.data.brand.brand_id)">
         		<div class="brandimg">
         			<img :src="data.data.brand.brand_image" alt="">
         		</div>
@@ -104,12 +106,15 @@ export default {
       starttime: 0,
       endtime: 0,
       todayimg:null,
-      brandlist:[]
+      brandlist:[],
+      loading:false,
+      total:30
 
     }
   },
   methods: {
     handleclick (index) {
+    	this.$router.push(`/listing/${index}`)
       this.$router.push(`/clothing/${index}`)
     },
     handleCutdowntime (end) {
@@ -128,7 +133,30 @@ export default {
 					    that.endsecond = that.endsecond < 10 ? ('0' + that.endsecond) : that.endsecond
         }
       }, 1000)
-    }
+    },
+    handelScroll(){
+
+    },
+    loadMore() {
+		  this.loading = true;
+		  this.loading = true;
+		  if(((document.documentElement.scrollTop||document.body.scrollTop)<130)){
+		  	return;
+		  }
+		  if(this.brandlist.length===this.total){
+		  	return;
+		  }
+		  axios({
+		  	url:`vips-mobile/rest/layout/h5/channel/data?f=www&width=640&height=460&net=wifi&changeResolution=2&channel_name=%E6%AF%8D%E5%A9%B4&app_name=shop_wap&app_version=4.0&mars_cid=1550025936042_eff3c20fab27592b534802331509bfd3&warehouse=VIP_BJ&api_key=8cec5243ade04ed3a02c5972bcda0d3f&fdc_area_id=102101102&province_id=102101&city_id=102101101&saturn=&wap_consumer=A1&standby_id=www&source_app=yd_wap&mobile_platform=2&platform=2&client=wap&lightart_version=1&mobile_channel=mobiles-adp%3Auopxvvef%3A%3A%3A%3A%7C%7C&menu_code=20180926001&load_more_token=eyJjaGFubmVsX2lkIjoiNTMiLCJ0c2lmdCI6IjAiLCJicmFuZF9vZmZzZXQiOiIzMCIsImJyYW5kX3JlZmVyX2luZGV4IjoiNyJ9&_=1550147192618`
+		  }).then(res=>{
+		  	
+		  	this.brandlist=res.data.data.data.floor_list;
+		  	// this.brandlist=[...this.bannerlist,...res.data.data.data.floor_list];
+		    this.loading = false;
+		  })
+		
+		
+  	}
   },
 
   mounted () {
@@ -142,7 +170,7 @@ export default {
       this.clotheslisttwo = res.data.data.data.floor_list[2].data.operation_data.data.block[0].child
       this.clotheslistthree = res.data.data.data.floor_list[3].data.operation_data.data.block[0].child
       this.bannerlist = res.data.data.data.floor_list[4].data.resourceGroupList[0].resourceList
-      this.bgimg = this.bannerlist[0].lightArtImage.imageUrl
+      this.bgimg = this.bannerlist[0].lightArtImage.imageUrl;
 
       var start = 0
       var end = 0
@@ -190,13 +218,11 @@ export default {
       // this.brandlist=res.data.data.data.floor_list
 
     })
-    axios({
-    	url:`vips-mobile/rest/layout/h5/channel/data?f=www&width=640&height=460&net=wifi&changeResolution=2&channel_name=%E6%AF%8D%E5%A9%B4&app_name=shop_wap&app_version=4.0&mars_cid=1550025936042_eff3c20fab27592b534802331509bfd3&warehouse=VIP_BJ&api_key=8cec5243ade04ed3a02c5972bcda0d3f&fdc_area_id=102101102&province_id=102101&city_id=102101101&saturn=&wap_consumer=A1&standby_id=www&source_app=yd_wap&mobile_platform=2&platform=2&client=wap&lightart_version=1&mobile_channel=mobiles-adp%3Auopxvvef%3A%3A%3A%3A%7C%7C&menu_code=20180926001&load_more_token=eyJjaGFubmVsX2lkIjoiNTMiLCJ0c2lmdCI6IjAiLCJicmFuZF9vZmZzZXQiOiIzMCIsImJyYW5kX3JlZmVyX2luZGV4IjoiNyJ9&_=1550147192618`
-    }).then(res=>{
-    	this.brandlist=res.data.data.data.floor_list
-    })
+  
+    // window.onscroll=this.handelScroll;
 
-  }
+  },
+
   
 }
 
