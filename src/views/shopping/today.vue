@@ -14,16 +14,52 @@
             <img :src="data.data.images[0].path" alt="">
         </li>
   </ul>
+  <div class="conson"> <img :src="list.data.data.floor_list[4].data.operation_data.data.block[0].child[0].data.imageUrl"></div>
 <div class="main" :style="{background: 'url('+ img +')' + 'top' }">
     <p class="main_p" v-if="list">
-        {{list.data.data.floor_list[4].data.resourceGroupList[0].resourceList[1].lightArtLabel.text}} | {{list.data.data.floor_list[4].data.resourceGroupList[0].resourceList[3].lightArtLabel.text}}
+        {{list.data.data.floor_list[6].data.resourceGroupList[0].resourceList[1].lightArtLabel.text}} | {{list.data.data.floor_list[6].data.resourceGroupList[0].resourceList[3].lightArtLabel.text}}
         <span v-if='hours'>{{hours}}</span>
         <span class="dian" v-if="seconds">:</span>
         <span v-if="minutes">{{minutes}}</span>
         <span class="dian" v-if="seconds">:</span>
         <span v-if="seconds">{{seconds}}</span>
     </p>
+    <ul class="main_ul">
+      <li class="main_li">
+        <img :src="list.data.data.floor_list[6].data.resourceGroupList[0].resourceList[5].lightArtImage.imageUrl">
+        <p>
+          <span>{{list.data.data.floor_list[6].data.resourceGroupList[0].resourceList[6].lightArtLabel.text}}</span>
+          {{list.data.data.floor_list[6].data.resourceGroupList[0].resourceList[7].lightArtLabel.text}}
+        </p>
+        <p class="p1">{{list.data.data.floor_list[6].data.resourceGroupList[0].resourceList[8].lightArtLabel.text}}</p>
+      </li>
+      <li class="main_li">
+        <img :src="list.data.data.floor_list[6].data.resourceGroupList[0].resourceList[9].lightArtImage.imageUrl">
+        <p class="p2">
+          <span>{{list.data.data.floor_list[6].data.resourceGroupList[0].resourceList[10].lightArtLabel.text}}</span>
+          {{list.data.data.floor_list[6].data.resourceGroupList[0].resourceList[11].lightArtLabel.text}}
+        </p>
+        <p class="p3">{{list.data.data.floor_list[6].data.resourceGroupList[0].resourceList[12].lightArtLabel.text}}</p>
+      </li>
+      <li class="main_li">
+        <img :src="list.data.data.floor_list[6].data.resourceGroupList[0].resourceList[13].lightArtImage.imageUrl">
+        <p class="p4">
+          <span>{{list.data.data.floor_list[6].data.resourceGroupList[0].resourceList[14].lightArtLabel.text}}</span>
+          {{list.data.data.floor_list[6].data.resourceGroupList[0].resourceList[15].lightArtLabel.text}}
+        </p>
+        <p class="p5">{{list.data.data.floor_list[6].data.resourceGroupList[0].resourceList[16].lightArtLabel.text}}</p>
+      </li>
+      <li class="main_li">
+        <img :src="list.data.data.floor_list[6].data.resourceGroupList[0].resourceList[17].lightArtImage.imageUrl">
+        <p class="p6">
+          <span>{{list.data.data.floor_list[6].data.resourceGroupList[0].resourceList[18].lightArtLabel.text}}</span>
+          {{list.data.data.floor_list[6].data.resourceGroupList[0].resourceList[19].lightArtLabel.text}}
+        </p>
+        <p class="p7">{{list.data.data.floor_list[6].data.resourceGroupList[0].resourceList[20].lightArtLabel.text}}</p>
+      </li>
 
+      
+    </ul>
 </div>
 
   </div>
@@ -56,9 +92,9 @@ export default {
     }).then(res => {
       console.log(res.data)
       this.list = res.data
-      this.img = res.data.data.data.floor_list[4].data.resourceGroupList[0].resourceList[0].lightArtImage.imageUrl
-      this.endTime = res.data.data.data.floor_list[4].data.resourceGroupList[0].resourceList[4].lightArtCountDown.endTime
-      this.startTime = res.data.data.data.floor_list[4].data.resourceGroupList[0].resourceList[4].lightArtCountDown.startTime
+      this.img = res.data.data.data.floor_list[6].data.resourceGroupList[0].resourceList[0].lightArtImage.imageUrl
+      this.endTime = res.data.data.data.floor_list[6].data.resourceGroupList[0].resourceList[4].lightArtCountDown.endTime
+      this.startTime = res.data.data.data.floor_list[6].data.resourceGroupList[0].resourceList[4].lightArtCountDown.startTime
       this.nowTime = this.endTime - this.startTime
       console.log(this.endTime)
       var self = this
@@ -110,9 +146,13 @@ export default {
 .banner{
     margin-top:2px;
     width:100%;
-    height: 240px;
+    height: 210px;
      background-size: 80% 80% !important;
 
+}
+.conson{
+  height:78px;
+  width:100%;
 }
 .main{
     width: 100%;
@@ -123,6 +163,7 @@ export default {
    .main_p{
     position: absolute;
    left:31%;
+   height:22%;
    top: 22%;
    font-size: 13px;
    span{
@@ -135,9 +176,71 @@ export default {
     color: black
    }
 }
+.main_ul{
+  position:absolute;
+ 
+  width: 100%;
+  top:30%;
+  height:152px;
+  li{
+    width:25%;
+    float:left;
+    height:152px;
+    img{
+      width:80%;
+      height:50%;
+      margin-top: 10px
+    }
+    p{
+      height:20px;
+      font-size:12px;
+      float: left;
+      line-height:20px;
+      position:absolute;
+      top:67%;
+      text-align:center;
+      left:2%;
+      span{
+        background:#f6c;
+        font-size:12px;
+        color:#fff;
+        
+      }
+    }
+    .p1{
+      top:77%;
+      color: #ccc
+    }
+    .p2{
+      left:28%;
+    }
+    .p3{
+      left:28%;
+      top:77%;
+      color:#ccc;
+    }
+    .p4{
+      left:53%;
+    }
+    .p5{
+      left:52%;
+      top:77%;
+      color:#ccc;
+    }
+    .p6{
+      left:78%;
+    }
+    .p7{
+      left:78%;
+      top:77%;
+      color:#ccc;
+    }
+  }  
+}
 
  /*  background:url('list.data.data.floor_list[4].data.resourceGroupList[0].resourceList[0].lightArtImage.imageUrl');*/
 }
+
 
 ul{
 
