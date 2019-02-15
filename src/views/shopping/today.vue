@@ -61,7 +61,7 @@
       </li>
     </ul>
 </div>
-    <ul class="nav">
+    <ul class="nav" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
       <li v-for='more in moreList' class="nav_li">
         <img :src="more.data.brand.brand_image">
         <h1>{{more.data.brand.title}} <span>{{more.data.brand.remain_days}}</span></h1>
@@ -75,6 +75,8 @@
 
 import axios from 'axios'
 import Vue from 'vue'
+import infiniteScroll from 'vue-infinite-scroll'
+Vue.use(infiniteScroll)
 
 export default {
 
@@ -91,7 +93,8 @@ export default {
       minutes: null,
       seconds: null,
       moreList:null,
-      brand:[]
+      brand:[],
+      busy: false
 
     }
   },
@@ -146,7 +149,31 @@ export default {
 
       // this.$router.push(`/detail?id=${index}`);
       // this.$router.push({path:"/detail",query:{id:index,name:"kerwin"}})// /detail?id=4487
-    }
+    },
+     loadMore() {
+      
+      this.busy = true;
+       axios({
+      url:'vips-mobile/rest/layout/h5/channel/data?f=www&width=640&height=460&net=wifi&changeResolution=2&channel_name=%E4%BB%8A%E6%97%A5%E6%8E%A8%E8%8D%90&app_name=shop_wap&app_version=4.0&mars_cid=1550194062359_d6b94fd1409da66bd835ed2f64fa5af7&warehouse=VIP_BJ&api_key=8cec5243ade04ed3a02c5972bcda0d3f&fdc_area_id=102101102&province_id=102101&city_id=102101101&saturn=&wap_consumer=A1&standby_id=www&source_app=yd_wap&mobile_platform=2&platform=2&client=wap&lightart_version=1&mobile_channel=mobiles-adp%3Auopxvvef%3A%3A%3A%3A%7C%7C&menu_code=20181203001&load_more_token=eyJjaGFubmVsX2lkIjoiNDkiLCJ0c2lmdCI6IjEiLCJicmFuZF9vZmZzZXQiOiIwIiwiYnJhbmRfcmVmZXJfaW5kZXgiOiI5In0%3D&_=1550201849886'
+    }).then(res=>{
+      
+      this.moreList=[...this.moreList,...res.data.data.data.floor_list]
+      
+      this.moreList=this.moreList.filter((item)=>{
+        return item.floor_type==="brand"
+
+      })
+      this.busy=false
+
+    })
+
+      // setTimeout(() => {
+      //   for (var i = 0, j = 10; i < j; i++) {
+      //     this.data.push({ name: count++ });
+      //   }
+      //   this.busy = false;
+      // }, 1000);
+    } 
 
   },
   computed: {
