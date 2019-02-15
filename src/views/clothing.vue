@@ -26,7 +26,7 @@
     <img src="https://h2.appsimg.com/a.appsimg.com/upload/flow/2018/12/05/194/15440058682418.jpg" class="img1">
     <div class="swiper-container">
         <div class="swiper-wrapper">
-            <div class="swiper-slide" v-for="swip in swipeslist" >
+            <div class="swiper-slide" v-for="swip in swipeslist" @click="handleClick(swip)" >
                 <img :src="swip.pic">
             </div>
         </div>
