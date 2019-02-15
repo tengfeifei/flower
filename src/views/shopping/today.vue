@@ -57,10 +57,15 @@
         </p>
         <p class="p7">{{list.data.data.floor_list[6].data.resourceGroupList[0].resourceList[20].lightArtLabel.text}}</p>
       </li>
-
-      
     </ul>
 </div>
+    <ul class="nav">
+      <li v-for='more in moreList' class="nav_li">
+        <img :src="more.data.brand.brand_image">
+        <h1>{{more.data.brand.title}} <span>{{more.data.brand.remain_days}}</span></h1>
+        <p>{{more.data.brand.discount}}{{more.data.brand.pms_text}}</p>
+      </li>
+    </ul>
 
   </div>
 </template>
@@ -82,7 +87,9 @@ export default {
       end: 0,
       hours: null,
       minutes: null,
-      seconds: null
+      seconds: null,
+      moreList:null,
+      brand:[]
 
     }
   },
@@ -120,6 +127,17 @@ export default {
         }
       }, 1000)
     })
+    axios({
+      url:'vips-mobile/rest/layout/h5/channel/data?f=www&width=640&height=460&net=wifi&changeResolution=2&channel_name=%E4%BB%8A%E6%97%A5%E6%8E%A8%E8%8D%90&app_name=shop_wap&app_version=4.0&mars_cid=1550194062359_d6b94fd1409da66bd835ed2f64fa5af7&warehouse=VIP_BJ&api_key=8cec5243ade04ed3a02c5972bcda0d3f&fdc_area_id=102101102&province_id=102101&city_id=102101101&saturn=&wap_consumer=A1&standby_id=www&source_app=yd_wap&mobile_platform=2&platform=2&client=wap&lightart_version=1&mobile_channel=mobiles-adp%3Auopxvvef%3A%3A%3A%3A%7C%7C&menu_code=20181203001&load_more_token=eyJjaGFubmVsX2lkIjoiNDkiLCJ0c2lmdCI6IjEiLCJicmFuZF9vZmZzZXQiOiIwIiwiYnJhbmRfcmVmZXJfaW5kZXgiOiI5In0%3D&_=1550201849886'
+    }).then(res=>{
+      this.moreList=res.data.data.data.floor_list
+     
+      this.moreList=this.moreList.filter((item)=>{
+        return item.floor_type==="brand"
+      })
+      console.log(this.moreList,"111")
+
+    })
   },
   methods: {
     handleClick (index) {
@@ -146,14 +164,11 @@ export default {
 .banner{
     margin-top:2px;
     width:100%;
-    height: 210px;
+    height: 16 0px;
      background-size: 80% 80% !important;
 
 }
-.conson{
-  height:78px;
-  width:100%;
-}
+
 .main{
     width: 100%;
    height: 230px;
@@ -204,7 +219,7 @@ export default {
         background:#f6c;
         font-size:12px;
         color:#fff;
-        
+
       }
     }
     .p1{
@@ -240,6 +255,56 @@ export default {
 
  /*  background:url('list.data.data.floor_list[4].data.resourceGroupList[0].resourceList[0].lightArtImage.imageUrl');*/
 }
+.nav{
+  width:100%;
+  padding:0 4%;
+  background:#f3f4f5;
+  
+  .nav_li{
+  width:92%;
+  height:250px;
+  border-radius:20px;
+  margin-top: 10px;
+  line-height:0;
+  border:1px solid ;
+  border-color:rgb(232,233,235);
+  background:#fff;
+  img{
+    width:100%;
+    height:190px;
+    border-radius:20px 20px 0 0;
+  }
+  h1{
+    font-size:14px;
+    height:28px;
+    line-height:28px;
+    text-align:left;
+    text-indent: 10px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+    margin-top: 8px;
+    span{
+      float:right;
+      margin-right:10px;
+      font-weight: 100;
+      color:#ccc;
+      font-size:12px;
+    }
+  }
+  p{
+    text-align:left;
+    text-indent:10px;
+    font-size:13px;
+    height:15px;
+    line-height:15px;
+    color:#ccc;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+  }
+  }
+}
 
 
 ul{
@@ -247,7 +312,6 @@ ul{
     list-style: none;
     width: 100%;
     display: flex;
-    height: 75px;
     flex-wrap: wrap;
     text-align: center;
 }
