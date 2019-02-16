@@ -64,7 +64,7 @@ import { InfiniteScroll } from 'mint-ui';
 Vue.component(Header.name, Header)
 Vue.use(InfiniteScroll);
 
-var arr = ['eyJjaGFubmVsX2lkIjoiNjYiLCJ0c2lmdCI6IjAiLCJicmFuZF9vZmZzZXQiOiIwIiwiYnJhbmRfcmVmZXJfaW5kZXgiOiI5In0=_: 1550131853878', 'eyJjaGFubmVsX2lkIjoiNjYiLCJ0c2lmdCI6IjAiLCJicmFuZF9vZmZzZXQiOiIzMCIsImJyYW5kX3JlZmVyX2luZGV4IjoiOSJ9_: 1550133050439', 'eyJjaGFubmVsX2lkIjoiNjYiLCJ0c2lmdCI6IjAiLCJicmFuZF9vZmZzZXQiOiI2MCIsImJyYW5kX3JlZmVyX2luZGV4IjoiOSJ9_: 1550138087579', 'eyJjaGFubmVsX2lkIjoiNjYiLCJ0c2lmdCI6IjAiLCJicmFuZF9vZmZzZXQiOiI5MCIsImJyYW5kX3JlZmVyX2luZGV4IjoiOSJ9_: 1550138113702']
+
 
 export default {
   data () {
@@ -78,7 +78,6 @@ export default {
       disable: false,
       count: 0,
       loading:false
-
 
     }
   },
@@ -137,7 +136,6 @@ export default {
              // console.log(this.biglist);
              this.loading=false;
           })
-      
     }
     // imgStyle(dataa){
     //     console.log(dataa)
