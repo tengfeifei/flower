@@ -40,7 +40,7 @@
     </div>
     <img src="http://b.appsimg.com/upload/momin/2018/11/13/117/1542092001276.jpg" class="img2">
 
-    <div class="sales" v-infinite-scroll="loadMore" infinite-scroll-disabled="disable" infinite-scroll-distance="0" infinite-scroll-immediate-check="false">
+    <div class="sales" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
          <div v-for="dete in biglist" @click="handleClick(dete)" class="sale">
             <img :src="dete.data.brand.brand_image">
             <div>
@@ -59,12 +59,11 @@ import axios from 'axios'
 import Swiper from 'swiper'
 import 'swiper/dist/css/swiper.css'
 import Vue from 'vue'
-// import infiniteScroll from 'vue-infinite-scroll'
-// Vue.use(infiniteScroll)
+import { InfiniteScroll } from 'mint-ui';
 
 Vue.component(Header.name, Header)
+Vue.use(InfiniteScroll);
 
-var arr=['eyJjaGFubmVsX2lkIjoiNjYiLCJ0c2lmdCI6IjAiLCJicmFuZF9vZmZzZXQiOiIwIiwiYnJhbmRfcmVmZXJfaW5kZXgiOiI5In0=_: 1550131853878','eyJjaGFubmVsX2lkIjoiNjYiLCJ0c2lmdCI6IjAiLCJicmFuZF9vZmZzZXQiOiIzMCIsImJyYW5kX3JlZmVyX2luZGV4IjoiOSJ9_: 1550133050439','eyJjaGFubmVsX2lkIjoiNjYiLCJ0c2lmdCI6IjAiLCJicmFuZF9vZmZzZXQiOiI2MCIsImJyYW5kX3JlZmVyX2luZGV4IjoiOSJ9_: 1550138087579','eyJjaGFubmVsX2lkIjoiNjYiLCJ0c2lmdCI6IjAiLCJicmFuZF9vZmZzZXQiOiI5MCIsImJyYW5kX3JlZmVyX2luZGV4IjoiOSJ9_: 1550138113702']
 export default {
   data () {
     return {
@@ -74,8 +73,7 @@ export default {
       swipeslist: [],
       img2list: [],
       biglist: [],
-      disable: false,
-      count:0
+      loading:false
 
     }
   },
@@ -95,14 +93,14 @@ export default {
         })
       })
       this.img2list = res.data.data.data.floor_list[6].data.resourceGroupList[0].resourceList
-      console.log(this.img2list)
+      // console.log(this.img2list)
     }),
     axios({
       url: 'vips-mobile/rest/layout/h5/channel/data?f=www&width=640&height=460&net=wifi&changeResolution=2&channel_name=%E5%A5%B3%E8%A3%85&app_name=shop_wap&app_version=4.0&mars_cid=1550026078264_2b4c9fedc8a681df78ffea976839b8a7&warehouse=VIP_BJ&api_key=8cec5243ade04ed3a02c5972bcda0d3f&fdc_area_id=102101102&province_id=102101&city_id=102101101&saturn=&wap_consumer=A1&standby_id=www&source_app=yd_wap&mobile_platform=2&platform=2&client=wap&lightart_version=1&mobile_channel=mobiles-adp%3Auopxvvef%3A%3A%3A%3A%7C%7C&menu_code=20180925001&load_more_token=eyJjaGFubmVsX2lkIjoiNjYiLCJ0c2lmdCI6IjAiLCJicmFuZF9vZmZzZXQiOiIwIiwiYnJhbmRfcmVmZXJfaW5kZXgiOiI4In0%3D&_=1550120369034'
 
     }).then(res => {
       this.biglist = res.data.data.data.floor_list
-      console.log(this.biglist)
+      // console.log(this.biglist)
     })
   },
   methods: {
@@ -125,22 +123,15 @@ export default {
       }
     },
     loadMore(){
-      console.log('到底了');
-      if(count>=4){
-        return 
-      } else{
-        count++
-          this.disable = true;
-          if(this.biglist.length==30){
-              return ;
-          }
+         // console.log('lalalal')
+         this.loading=true;
           axios({
-              url:`vips-mobile/rest/layout/h5/channel/data?f=www&width=640&height=460&net=wifi&changeResolution=2&channel_name=%E5%A5%B3%E8%A3%85&app_name=shop_wap&app_version=4.0&mars_cid=1550026078264_2b4c9fedc8a681df78ffea976839b8a7&warehouse=VIP_BJ&api_key=8cec5243ade04ed3a02c5972bcda0d3f&fdc_area_id=102101102&province_id=102101&city_id=102101101&saturn=&wap_consumer=A1&standby_id=www&source_app=yd_wap&mobile_platform=2&platform=2&client=wap&lightart_version=1&mobile_channel=mobiles-adp%3Auopxvvef%3A%3A%3A%3A%7C%7C&menu_code=20180925001&load_more_token=arr[${count}]`
+              url:"vips-mobile/rest/layout/h5/channel/data?f=www&width=640&height=460&net=wifi&changeResolution=2&channel_name=%E5%A5%B3%E8%A3%85&app_name=shop_wap&app_version=4.0&mars_cid=1550026078264_2b4c9fedc8a681df78ffea976839b8a7&warehouse=VIP_BJ&api_key=8cec5243ade04ed3a02c5972bcda0d3f&fdc_area_id=102101102&province_id=102101&city_id=102101101&saturn=&wap_consumer=A1&standby_id=www&source_app=yd_wap&mobile_platform=2&platform=2&client=wap&lightart_version=1&mobile_channel=mobiles-adp%3Auopxvvef%3A%3A%3A%3A%7C%7C&menu_code=20180925001&load_more_token=eyJjaGFubmVsX2lkIjoiNjYiLCJ0c2lmdCI6IjAiLCJicmFuZF9vZmZzZXQiOiIwIiwiYnJhbmRfcmVmZXJfaW5kZXgiOiI4In0%3D&_=1550120369034"
           }).then(res=>{
-              this.biglist=res.data.data.data.floor_list;
-                  console.log(this.biglist);
+              this.biglist=[...this.biglist,...res.data.data.data.floor_list];
+             // console.log(this.biglist);
+             this.loading=false;
           })
-      }
       
     }
     // imgStyle(dataa){
