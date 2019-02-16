@@ -58,7 +58,6 @@
         <p class="p7">{{list.data.data.floor_list[6].data.resourceGroupList[0].resourceList[20].lightArtLabel.text}}</p>
       </li>
 
-      
     </ul>
 </div>
 
@@ -178,7 +177,7 @@ export default {
 }
 .main_ul{
   position:absolute;
- 
+
   width: 100%;
   top:30%;
   height:152px;
@@ -204,7 +203,7 @@ export default {
         background:#f6c;
         font-size:12px;
         color:#fff;
-        
+
       }
     }
     .p1{
@@ -235,12 +234,11 @@ export default {
       top:77%;
       color:#ccc;
     }
-  }  
+  }
 }
 
  /*  background:url('list.data.data.floor_list[4].data.resourceGroupList[0].resourceList[0].lightArtImage.imageUrl');*/
 }
-
 
 ul{
 

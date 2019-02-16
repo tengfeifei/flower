@@ -12,6 +12,7 @@
     "mint-ui": "^2.2.13",
     "swiper": "^4.4.6",
     "vue": "^2.5.22",
+    "vue-infinite-scroll": "^2.0.2",
     "vue-router": "^3.0.1",
     "vue-swipe": "^2.4.0",
     "vue2-countdown": "^1.0.8",

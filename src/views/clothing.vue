@@ -64,7 +64,7 @@ import Vue from 'vue'
 
 Vue.component(Header.name, Header)
 
-var arr=['eyJjaGFubmVsX2lkIjoiNjYiLCJ0c2lmdCI6IjAiLCJicmFuZF9vZmZzZXQiOiIwIiwiYnJhbmRfcmVmZXJfaW5kZXgiOiI5In0=_: 1550131853878','eyJjaGFubmVsX2lkIjoiNjYiLCJ0c2lmdCI6IjAiLCJicmFuZF9vZmZzZXQiOiIzMCIsImJyYW5kX3JlZmVyX2luZGV4IjoiOSJ9_: 1550133050439','eyJjaGFubmVsX2lkIjoiNjYiLCJ0c2lmdCI6IjAiLCJicmFuZF9vZmZzZXQiOiI2MCIsImJyYW5kX3JlZmVyX2luZGV4IjoiOSJ9_: 1550138087579','eyJjaGFubmVsX2lkIjoiNjYiLCJ0c2lmdCI6IjAiLCJicmFuZF9vZmZzZXQiOiI5MCIsImJyYW5kX3JlZmVyX2luZGV4IjoiOSJ9_: 1550138113702']
+var arr = ['eyJjaGFubmVsX2lkIjoiNjYiLCJ0c2lmdCI6IjAiLCJicmFuZF9vZmZzZXQiOiIwIiwiYnJhbmRfcmVmZXJfaW5kZXgiOiI5In0=_: 1550131853878', 'eyJjaGFubmVsX2lkIjoiNjYiLCJ0c2lmdCI6IjAiLCJicmFuZF9vZmZzZXQiOiIzMCIsImJyYW5kX3JlZmVyX2luZGV4IjoiOSJ9_: 1550133050439', 'eyJjaGFubmVsX2lkIjoiNjYiLCJ0c2lmdCI6IjAiLCJicmFuZF9vZmZzZXQiOiI2MCIsImJyYW5kX3JlZmVyX2luZGV4IjoiOSJ9_: 1550138087579', 'eyJjaGFubmVsX2lkIjoiNjYiLCJ0c2lmdCI6IjAiLCJicmFuZF9vZmZzZXQiOiI5MCIsImJyYW5kX3JlZmVyX2luZGV4IjoiOSJ9_: 1550138113702']
 export default {
   data () {
     return {
@@ -75,7 +75,7 @@ export default {
       img2list: [],
       biglist: [],
       disable: false,
-      count:0
+      count: 0
 
     }
   },
@@ -124,24 +124,23 @@ export default {
         return ''
       }
     },
-    loadMore(){
-      console.log('到底了');
-      if(count>=4){
-        return 
-      } else{
+    loadMore () {
+      console.log('到底了')
+      if (count >= 4) {
+
+      } else {
         count++
-          this.disable = true;
-          if(this.biglist.length==30){
-              return ;
-          }
-          axios({
-              url:`vips-mobile/rest/layout/h5/channel/data?f=www&width=640&height=460&net=wifi&changeResolution=2&channel_name=%E5%A5%B3%E8%A3%85&app_name=shop_wap&app_version=4.0&mars_cid=1550026078264_2b4c9fedc8a681df78ffea976839b8a7&warehouse=VIP_BJ&api_key=8cec5243ade04ed3a02c5972bcda0d3f&fdc_area_id=102101102&province_id=102101&city_id=102101101&saturn=&wap_consumer=A1&standby_id=www&source_app=yd_wap&mobile_platform=2&platform=2&client=wap&lightart_version=1&mobile_channel=mobiles-adp%3Auopxvvef%3A%3A%3A%3A%7C%7C&menu_code=20180925001&load_more_token=arr[${count}]`
-          }).then(res=>{
-              this.biglist=res.data.data.data.floor_list;
-                  console.log(this.biglist);
-          })
+        this.disable = true
+        if (this.biglist.length == 30) {
+          return
+        }
+        axios({
+          url: `vips-mobile/rest/layout/h5/channel/data?f=www&width=640&height=460&net=wifi&changeResolution=2&channel_name=%E5%A5%B3%E8%A3%85&app_name=shop_wap&app_version=4.0&mars_cid=1550026078264_2b4c9fedc8a681df78ffea976839b8a7&warehouse=VIP_BJ&api_key=8cec5243ade04ed3a02c5972bcda0d3f&fdc_area_id=102101102&province_id=102101&city_id=102101101&saturn=&wap_consumer=A1&standby_id=www&source_app=yd_wap&mobile_platform=2&platform=2&client=wap&lightart_version=1&mobile_channel=mobiles-adp%3Auopxvvef%3A%3A%3A%3A%7C%7C&menu_code=20180925001&load_more_token=arr[${count}]`
+        }).then(res => {
+          this.biglist = res.data.data.data.floor_list
+          console.log(this.biglist)
+        })
       }
-      
     }
     // imgStyle(dataa){
     //     console.log(dataa)

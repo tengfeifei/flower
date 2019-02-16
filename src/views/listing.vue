@@ -10,7 +10,7 @@
 		<ul class="topbar">
 				<router-link to="javascript:;" tag="li" class="topbar-cell">
 					价格
-				</router-link>		
+				</router-link>
 				<router-link to="javascript:;" tag="li" class="topbar-cell">
 					折扣
 				</router-link>
@@ -34,7 +34,7 @@
 					<div class="describe-2">
 						<span>{{data.brandShowName}} |</span>
 						<span>
-							{{data.productName}}						
+							{{data.productName}}
 						</span>
 					</div>
 				</li>
@@ -45,40 +45,40 @@
 import axios from 'axios'
 import { Header } from 'mint-ui'
 import Vue from 'vue'
-import { InfiniteScroll } from 'mint-ui';
+import { InfiniteScroll } from 'mint-ui'
 
 Vue.component(Header.name, Header)
-Vue.use(InfiniteScroll);
+Vue.use(InfiniteScroll)
 export default {
-	data () {
-		return {
-			loading:false,
-			products: [],
-			detailist: ['潮人潮牌', 'aoo', 'app']
-		}
-	},
-	methods: {
-					handleClick (index) {
-							this.$router.push(`/detail/${index}`)
-					},				
-					loadMore() {
-					  axios.post('server.html?rpc&method=ClassifyRpc.getCategoryProductInfo&f=www&_=1550144263039',{"method":"ClassifyRpc.getCategoryProductInfo","params":{"productIds":"575104186188572,575112414700316,571725431202012,575104166699804,570575752544598,569259431461651,561877113779166,538524029105671,590605132960854,590605023208534,684951497,558766516807560,590605133030486,570553862271945,590605005493334,590605133235286,590605132096598,590604967793750,590605077206102,590605058831446","page":"classify-list-130519-0-0-0-0-1-20.html","query":""},"id":1550135347318,"jsonrpc":"2.0"}).then(res => {
-					  		this.products = [...this.products, ...res.data["0"].result.data.products];
-					  		console.log(this.products.length);
+  data () {
+    return {
+      loading: false,
+      products: [],
+      detailist: ['潮人潮牌', 'aoo', 'app']
+    }
+  },
+  methods: {
+    handleClick (index) {
+      this.$router.push(`/detail/${index}`)
+    },
+    loadMore () {
+					  axios.post('server.html?rpc&method=ClassifyRpc.getCategoryProductInfo&f=www&_=1550144263039', { 'method': 'ClassifyRpc.getCategoryProductInfo', 'params': { 'productIds': '575104186188572,575112414700316,571725431202012,575104166699804,570575752544598,569259431461651,561877113779166,538524029105671,590605132960854,590605023208534,684951497,558766516807560,590605133030486,570553862271945,590605005493334,590605133235286,590605132096598,590604967793750,590605077206102,590605058831446', 'page': 'classify-list-130519-0-0-0-0-1-20.html', 'query': '' }, 'id': 1550135347318, 'jsonrpc': '2.0' }).then(res => {
+					  		this.products = [...this.products, ...res.data['0'].result.data.products]
+					  		console.log(this.products.length)
 					  	})
-					}
-	},
-	mounted () {
-		axios.post('server.html?rpc&method=ClassifyRpc.getCategoryProductInfo&f=www&_=1550144263039',{"method":"ClassifyRpc.getCategoryProductInfo","params":{"productIds":"575104186188572,575112414700316,571725431202012,575104166699804,570575752544598,569259431461651,561877113779166,538524029105671,590605132960854,590605023208534,684951497,558766516807560,590605133030486,570553862271945,590605005493334,590605133235286,590605132096598,590604967793750,590605077206102,590605058831446","page":"classify-list-130519-0-0-0-0-1-20.html","query":""},"id":1550135347318,"jsonrpc":"2.0"}).then(res => {
-				console.log("ok");
-				console.log(res);
-				console.log(res.data);
-				console.log(res.data["0"].result.data.products);
-				this.products = res.data["0"].result.data.products;
-				console.log('ccccc', this.products);
-				console.log('ccccc', this.products);
-			})
-	}
+    }
+  },
+  mounted () {
+    axios.post('server.html?rpc&method=ClassifyRpc.getCategoryProductInfo&f=www&_=1550144263039', { 'method': 'ClassifyRpc.getCategoryProductInfo', 'params': { 'productIds': '575104186188572,575112414700316,571725431202012,575104166699804,570575752544598,569259431461651,561877113779166,538524029105671,590605132960854,590605023208534,684951497,558766516807560,590605133030486,570553862271945,590605005493334,590605133235286,590605132096598,590604967793750,590605077206102,590605058831446', 'page': 'classify-list-130519-0-0-0-0-1-20.html', 'query': '' }, 'id': 1550135347318, 'jsonrpc': '2.0' }).then(res => {
+      console.log('ok')
+      console.log(res)
+      console.log(res.data)
+      console.log(res.data['0'].result.data.products)
+      this.products = res.data['0'].result.data.products
+      console.log('ccccc', this.products)
+      console.log('ccccc', this.products)
+    })
+  }
 }
 </script>
 <style lang="scss">
@@ -94,7 +94,7 @@ export default {
 	}
 	.top{
 		width:100%;
-	
+
 		background-color: red;
 		font-size:120px;
 	}
@@ -145,7 +145,6 @@ export default {
 		font-size: 14px;
 		color:#585c64;
 		margin:3px 2px 5px;
-
 
   	display: -webkit-box;
 	  -webkit-box-orient: vertical;
