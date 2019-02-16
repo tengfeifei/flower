@@ -22,14 +22,15 @@
 				</router-link>
 		</ul>
 
-		<ul class="product-list" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10">
+		<ul class="product-list" v-infinite-scroll="loadMore" infinite-scroll-disabled="loading" infinite-scroll-distance="10" infinite-scroll-immediate-check = "false">
 				<li v-for="data in products" @click="handleClick(data.productId)">
-					<img :src="data.squareImage" alt="">
+					<img :src="data.squareImage.length===0?data.small_image:data.squareImage" alt="">
 					<div class="describe-1">
 						<span>疯抢价</span>
-						<span>￥{{(data.vipshop_price*parseInt(data.vip_discount)*0.1).toFixed(0)}}</span>
-						<span class="hui"><del>￥{{data.vipshop_price}}</del></span>
-						<span class="hui">{{data.vip_discount}}</span>
+						<span>￥{{data.promotionPrice.length===0?data.vipshop_price:data.promotionPrice}}</span>
+						<!-- <span>￥{{(data.vipshop_price*parseInt(data.vip_discount)*0.1).toFixed(0)}}</span> -->
+						<span class="hui"><del>￥{{data.promotionPrice.length===0?data.marketPrice:data.promotionMarketPrice}}</del></span>
+						<span class="hui">{{data.promotionPrice.length===0?data.vip_discount:data.promotionDiscount}}</span>
 					</div>
 					<div class="describe-2">
 						<span>{{data.brandShowName}} |</span>
@@ -55,41 +56,65 @@ export default {
 
 			loading:false,
 			isActive:{a:false, b:false},
-			doubleClick:false,
-			products: [],
+			products: [],    //盛放返回的大数组
+			productIds: [],  //盛放返回的，排序后的产品id
+			normalCount:0,
+			sortRule:0,      //排序规则
 			detailist: ['潮人潮牌', 'aoo', 'app']
 		}
 	},
 	methods: {
 					handleClick (index) {
 							this.$router.push(`/detail/${index}`)
+					},
+					getProduct() {
+						axios.post('server.html?rpc&method=ClassifyRpc.getCategoryProductRank&f=www&_=1550281435251',{"method":"ClassifyRpc.getCategoryProductRank","params":{"page":"classify-list-130519-0-0-0-0-1-20.html","np":1,"ep":20,"category_id":"130519","brand_store_sn":"","filter":"","sort":this.sortRule,"minPrice":"","maxPrice":"","categoryId":"130519","isWarmup":0,"brandStoreSn":"","priceRange":"","pageOffset":null,"query":""},"id":1550281276774,"jsonrpc":"2.0"}).then(res => {
+								// console.log('得到产品id',res);
+								// console.log(res.data["0"].result.data.productIds);
+								this.productIds = res.data["0"].result.data.productIds;
+							}).then(res => {
+								let productIdStr = "";
+								productIdStr = this.productIds[this.normalCount];
+								for(let i=this.normalCount+1; i<this.normalCount+20; i++){
+									productIdStr = productIdStr + ',' + this.productIds[i];
+								}
+
+								axios.post('server.html?rpc&method=ClassifyRpc.getCategoryProductInfo&f=www&_=1550288361507', {"method":"ClassifyRpc.getCategoryProductInfo","params":{"productIds":productIdStr,"page":"classify-list-130519-0-0-0-0-1-20.html","query":""},"id":1550281276794,"jsonrpc":"2.0"}).then(res => {
+										// console.log('每次得到20个数据', res);
+										this.products = res.data["0"].result.data.products
+
+								})
+							});
 					},				
 					loadMore () {
-					  axios.post('server.html?rpc&method=ClassifyRpc.getCategoryProductInfo&f=www&_=1550144263039',{"method":"ClassifyRpc.getCategoryProductInfo","params":{"productIds":"575104186188572,575112414700316,571725431202012,575104166699804,570575752544598,569259431461651,561877113779166,538524029105671,590605132960854,590605023208534,684951497,558766516807560,590605133030486,570553862271945,590605005493334,590605133235286,590605132096598,590604967793750,590605077206102,590605058831446","page":"classify-list-130519-0-0-0-0-1-20.html","query":""},"id":1550135347318,"jsonrpc":"2.0"}).then(res => {
-					  		this.products = [...this.products, ...res.data["0"].result.data.products];
-					  		console.log(this.products.length);
-					  	})
+					  axios.post('server.html?rpc&method=ClassifyRpc.getCategoryProductRank&f=www&_=1550281435251',{"method":"ClassifyRpc.getCategoryProductRank","params":{"page":"classify-list-130519-0-0-0-0-1-20.html","np":1,"ep":20,"category_id":"130519","brand_store_sn":"","filter":"","sort":this.sortRule,"minPrice":"","maxPrice":"","categoryId":"130519","isWarmup":0,"brandStoreSn":"","priceRange":"","pageOffset":null,"query":""},"id":1550281276774,"jsonrpc":"2.0"}).then(res => {
+					  		// console.log('得到产品id',res);
+					  		// console.log(res.data["0"].result.data.productIds);
+					  		this.productIds = res.data["0"].result.data.productIds;
+					  	}).then(res => {
+
+					  		let productIdStr = this.productIds[this.normalCount];
+					  		for(let i=this.normalCount+1; i<this.normalCount+20; i++){
+					  			productIdStr = productIdStr + ',' + this.productIds[i];
+					  		}
+					  		this.normalCount += 20;
+					  		// console.log(productIdStr);
+					  		
+					  		axios.post('server.html?rpc&method=ClassifyRpc.getCategoryProductInfo&f=www&_=1550288361507', {"method":"ClassifyRpc.getCategoryProductInfo","params":{"productIds":productIdStr,"page":"classify-list-130519-0-0-0-0-1-20.html","query":""},"id":1550281276794,"jsonrpc":"2.0"}).then(res => {
+					  				// console.log('得到了前20个数据', res);
+					  				// this.products = res.data["0"].result.data.products
+					  				this.products = [...this.products, ...res.data["0"].result.data.products];
+
+					  		})
+					  	});
 					},
 					sortByPrice() {
-						console.log(this.products.length);
-						this.products.sort((a, b)=>{
-							if(this.doubleClick){
-								console.log('doubleClick1=====', this.doubleClick);
-								this.doubleClick = !this.doubleClick;
-								return (a.vipshop_price*parseInt(a.vip_discount)*0.1).toFixed(0)-
-									(b.vipshop_price*parseInt(b.vip_discount)*0.1).toFixed(0);								
-							}
-							else{
-								console.log('doubleClick2=====', this.doubleClick);
-								this.doubleClick = !this.doubleClick;
-								return (b.vipshop_price*parseInt(b.vip_discount)*0.1).toFixed(0)-
-								(a.vipshop_price*parseInt(a.vip_discount)*0.1).toFixed(0);
-							}
-							
-						});
+						this.sortRule++;
+						this.sortRule = this.sortRule%3;
+						console.log("排序规则：", this.sortRule);
+						this.getProduct();
 						this.isActive.a = true;
 						this.isActive.b = false;
-
 					},
 					sortByDiscount() {
 						this.isActive.b = true;
@@ -97,15 +122,7 @@ export default {
 					}
 	},
 	mounted () {
-		axios.post('server.html?rpc&method=ClassifyRpc.getCategoryProductInfo&f=www&_=1550144263039',{"method":"ClassifyRpc.getCategoryProductInfo","params":{"productIds":"575104186188572,575112414700316,571725431202012,575104166699804,570575752544598,569259431461651,561877113779166,538524029105671,590605132960854,590605023208534,684951497,558766516807560,590605133030486,570553862271945,590605005493334,590605133235286,590605132096598,590604967793750,590605077206102,590605058831446","page":"classify-list-130519-0-0-0-0-1-20.html","query":""},"id":1550135347318,"jsonrpc":"2.0"}).then(res => {
-				console.log("ok");
-				console.log(res);
-				console.log(res.data);
-				console.log(res.data["0"].result.data.products);
-				this.products = res.data["0"].result.data.products;
-				console.log('ccccc', this.products);
-				console.log('ccccc', this.products);
-			})
+		this.getProduct();
 	}
 }
 </script>
