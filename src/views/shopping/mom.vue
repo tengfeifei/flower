@@ -140,9 +140,7 @@ export default {
       }, 1000)
     },
     loadMore () {
-      console.log('aaaa');
 		  this.loading = true
-      console.log('bbb');
       Indicator.open({
         text: '加载中...',
         spinnerType: 'fading-circle'
@@ -166,11 +164,9 @@ export default {
             }else{
               this.mstlist=array_mst;
             }
-            console.log('filter_mst',array_mst);
             array_brand=array.filter(function(item){
               return item.floor_type==="brand";
             })
-            console.log('filter_brand',array_brand);
             this.brandlist=[...this.brandlist,...array_brand];
             this.loading=false;
 		  })
@@ -182,13 +178,11 @@ export default {
       url: `vips-mobile/rest/layout/h5/channel/data?f=www&width=640&height=460&net=wifi&changeResolution=2&channel_name=%E6%AF%8D%E5%A9%B4&app_name=shop_wap&app_version=4.0&mars_cid=1550025936042_eff3c20fab27592b534802331509bfd3&warehouse=VIP_BJ&api_key=8cec5243ade04ed3a02c5972bcda0d3f&fdc_area_id=102101102&province_id=102101&city_id=102101101&saturn=&wap_consumer=A1&standby_id=www&source_app=yd_wap&mobile_platform=2&platform=2&client=wap&lightart_version=1&mobile_channel=mobiles-adp%3Auopxvvef%3A%3A%3A%3A%7C%7C&menu_code=20180926001&_=1550059093710`
 
     }).then(res => {
-      console.log(res.data.data.data.floor_list[4].data.resourceGroupList[0].resourceList[0])
+     
       this.slidelist = res.data.data.data.floor_list[0].data.ad_data.ad_list
-      console.log('slide', this.slidelist)
-      // data.data.floor_list[""0""].data.ad_data.ad_list
+
       this.clotheslistone = res.data.data.data.floor_list[1].data.operation_data.data.block[0].child
-      console.log('one',this.clotheslistone);
-      //[""0""].data.imageUrl
+     
       this.clotheslisttwo = res.data.data.data.floor_list[2].data.operation_data.data.block[0].child
       this.clotheslistthree = res.data.data.data.floor_list[3].data.operation_data.data.block[0].child
       this.bannerlist = res.data.data.data.floor_list[4].data.resourceGroupList[0].resourceList
@@ -222,23 +216,22 @@ export default {
 				   })
       })
       var bannerarray = res.data.data.data.floor_list[4].data.resourceGroupList[0].resourceList
-      console.log('array',bannerarray)
+    
        bannerarray = bannerarray.splice(1, 16);
-       console.log('ban',bannerarray);
+     
       var result = []
       for (var i = 0; i < bannerarray.length; i += 4) {
       	result.push(bannerarray.slice(i, i + 4))
       }
-      console.log('hou', result)
       this.bannerlist = result
 
-      console.log(res.data.data.data.floor_list[5].data.image)
+     
       this.todayimg = res.data.data.data.floor_list[5].data.image;
       axios({
         url: `vips-mobile/rest/layout/h5/channel/data?f=www&width=640&height=460&net=wifi&changeResolution=2&channel_name=%E6%AF%8D%E5%A9%B4&app_name=shop_wap&app_version=4.0&mars_cid=1550025936042_eff3c20fab27592b534802331509bfd3&warehouse=VIP_BJ&api_key=8cec5243ade04ed3a02c5972bcda0d3f&fdc_area_id=102101102&province_id=102101&city_id=102101101&saturn=&wap_consumer=A1&standby_id=www&source_app=yd_wap&mobile_platform=2&platform=2&client=wap&lightart_version=1&mobile_channel=mobiles-adp%3Auopxvvef%3A%3A%3A%3A%7C%7C&menu_code=20180926001&load_more_token=eyJjaGFubmVsX2lkIjoiNTMiLCJ0c2lmdCI6IjAiLCJicmFuZF9vZmZzZXQiOiIwIiwiYnJhbmRfcmVmZXJfaW5kZXgiOiI2In0%3D&_=1550233874004`
       }).then(res => {
         
-        console.log('brand',res.data.data.data.floor_list)
+      
       
         var array=[];
         var array_mst=[];
@@ -254,12 +247,11 @@ export default {
         }else{
           this.mstlist=array_mst;
         }
-        // this.mstlist=array_mst;
-        console.log('filter_mst',array_mst);
+        
         array_brand=array.filter(function(item){
           return item.floor_type==="brand";
         })
-        console.log('filter_brand',array_brand);
+    
         this.brandlist=array_brand;
       })
 
