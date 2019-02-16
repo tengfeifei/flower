@@ -59,6 +59,10 @@
         </p>
         <p class="p7">{{list.data.data.floor_list[6].data.resourceGroupList[0].resourceList[20].lightArtLabel.text}}</p>
       </li>
+<<<<<<< HEAD
+
+=======
+>>>>>>> 09233d549358193c0622ab13e09b4ee9387019b0
     </ul>
 </div>
     <ul class="nav" v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
@@ -219,7 +223,7 @@ export default {
 }
 .main_ul{
   position:absolute;
- 
+
   width: 100%;
   top:30%;
   height:152px;
@@ -276,7 +280,7 @@ export default {
       top:77%;
       color:#ccc;
     }
-  }  
+  }
 }
 
  /*  background:url('list.data.data.floor_list[4].data.resourceGroupList[0].resourceList[0].lightArtImage.imageUrl');*/
@@ -331,7 +335,6 @@ export default {
   }
   }
 }
-
 
 ul{
 

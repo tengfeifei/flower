@@ -64,6 +64,8 @@ import { InfiniteScroll } from 'mint-ui';
 Vue.component(Header.name, Header)
 Vue.use(InfiniteScroll);
 
+
+
 export default {
   data () {
     return {
@@ -73,6 +75,8 @@ export default {
       swipeslist: [],
       img2list: [],
       biglist: [],
+      disable: false,
+      count: 0,
       loading:false
 
     }
@@ -132,7 +136,6 @@ export default {
              // console.log(this.biglist);
              this.loading=false;
           })
-      
     }
     // imgStyle(dataa){
     //     console.log(dataa)
