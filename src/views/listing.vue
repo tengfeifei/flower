@@ -1,23 +1,23 @@
 <template>
 	<div>
 		<mt-header title="花花钱" class="top">
-			<router-link to="/clothing" slot="left">
+			<router-link to="/clothing/[object%20Object]" slot="left">
 			 <mt-button icon="back"></mt-button>
 			</router-link>
 			<mt-button icon="more" slot="right"></mt-button>
 		</mt-header>
 
 		<ul class="topbar">
-				<router-link to="javascript:;" tag="li" class="topbar-cell">
+				<router-link to="" tag="li" class="topbar-cell" @click.native="sortByPrice()" :style="isActive.a?'color:red':'color:black'">
 					价格
 				</router-link>		
-				<router-link to="javascript:;" tag="li" class="topbar-cell">
+				<router-link to="javascript:;" tag="li" class="topbar-cell" @click.native="sortByDiscount()" :style="isActive.b?'color:red':'color:black'">
 					折扣
 				</router-link>
-				<router-link to="javascript:;" tag="li" class="topbar-cell">
+				<router-link to="javascript:;" tag="li" class="topbar-cell" @click.native="" :style="isActive?'color:black':'color:red'">
 					品牌
 				</router-link>
-				<router-link to="javascript:;" tag="li" class="topbar-cell">
+				<router-link to="javascript:;" tag="li" class="topbar-cell" @click.native="" :style="isActive?'color:black':'color:red'">
 					筛选
 				</router-link>
 		</ul>
@@ -52,7 +52,10 @@ Vue.use(InfiniteScroll);
 export default {
 	data () {
 		return {
+
 			loading:false,
+			isActive:{a:false, b:false},
+			doubleClick:false,
 			products: [],
 			detailist: ['潮人潮牌', 'aoo', 'app']
 		}
@@ -61,11 +64,36 @@ export default {
 					handleClick (index) {
 							this.$router.push(`/detail/${index}`)
 					},				
-					loadMore() {
+					loadMore () {
 					  axios.post('server.html?rpc&method=ClassifyRpc.getCategoryProductInfo&f=www&_=1550144263039',{"method":"ClassifyRpc.getCategoryProductInfo","params":{"productIds":"575104186188572,575112414700316,571725431202012,575104166699804,570575752544598,569259431461651,561877113779166,538524029105671,590605132960854,590605023208534,684951497,558766516807560,590605133030486,570553862271945,590605005493334,590605133235286,590605132096598,590604967793750,590605077206102,590605058831446","page":"classify-list-130519-0-0-0-0-1-20.html","query":""},"id":1550135347318,"jsonrpc":"2.0"}).then(res => {
 					  		this.products = [...this.products, ...res.data["0"].result.data.products];
 					  		console.log(this.products.length);
 					  	})
+					},
+					sortByPrice() {
+						console.log(this.products.length);
+						this.products.sort((a, b)=>{
+							if(this.doubleClick){
+								console.log('doubleClick1=====', this.doubleClick);
+								this.doubleClick = !this.doubleClick;
+								return (a.vipshop_price*parseInt(a.vip_discount)*0.1).toFixed(0)-
+									(b.vipshop_price*parseInt(b.vip_discount)*0.1).toFixed(0);								
+							}
+							else{
+								console.log('doubleClick2=====', this.doubleClick);
+								this.doubleClick = !this.doubleClick;
+								return (b.vipshop_price*parseInt(b.vip_discount)*0.1).toFixed(0)-
+								(a.vipshop_price*parseInt(a.vip_discount)*0.1).toFixed(0);
+							}
+							
+						});
+						this.isActive.a = true;
+						this.isActive.b = false;
+
+					},
+					sortByDiscount() {
+						this.isActive.b = true;
+						this.isActive.a = false;
 					}
 	},
 	mounted () {
@@ -157,4 +185,9 @@ export default {
 		color:#98989f;
 		margin:0 2px;
 	}
+
+	.active{
+		border-bottom:5px solid #f60;
+	}
+
 </style>
